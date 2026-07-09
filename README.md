@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OfferForge — AI Career Prep & Evaluation Suite
 
-## Getting Started
+OfferForge is a professional candidate preparation dashboard designed to audit resumes, practice for mock technical interviews, draft personalized outreach templates, and research target job positions.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🌟 Key Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Evaluate (Match Scorer)**: Renders instant compatibility index ratings (A-F grade scale) of user resumes against target Job Descriptions using Groq LLM pipelines.
+- **Outreach Generator**: Generates clean, personalized recruiter email templates tailored to target companies and job roles.
+- **Interview Prep Sandbox**: Runs dynamic custom interview training sessions with adaptive technical Q&As.
+- **Job Finder & Tracker**: Search for positions and log application state milestones in an interactive tracker.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛡️ Privacy Guard: DrishtiAI PII Redactor Integration
 
-## Learn More
+OfferForge incorporates the client-side **DrishtiAI PII Redaction** shield:
+- All user-pasted **CV (Resume)** and **Job Description** fields are sanitized in the browser prior to request execution.
+- Auto-detects and redacts sensitive parameters (like candidate emails, telephone numbers, and street addresses) to prevent accidental data leakage to public third-party endpoints.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📂 Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Frontend**: Next.js App Router (TypeScript, React 19)
+- **API Models**: Llama-3.3-70b-versatile (via Groq API key client)
+- **Document Export**: docx & file-saver
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🚀 Local Setup
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Clone and navigate to the directory:
+   ```bash
+   cd career-ops-ui
+   ```
+2. Install npm packages:
+   ```bash
+   npm install
+   ```
+3. Run the Next.js development server:
+   ```bash
+   npm run dev
+   ```
+4. Open [http://localhost:3000](http://localhost:3000). Enter your Groq API key in the sidebar panel to begin!
