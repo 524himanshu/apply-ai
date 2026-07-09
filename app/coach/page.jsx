@@ -6,7 +6,26 @@ import FindJobsTab from "../findjobs/page";
 
 // ─── GROQ ────────────────────────────────────────────────────────────────────
 
+function redactPII(text) {
+  if (!text) return "";
+  
+  // Regex for email addresses
+  const emailRegex = /[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+/g;
+  
+  // Regex for phone numbers
+  const phoneRegex = /(?:\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b|\b\d{10}\b|\b\d{3}[-.\s]\d{3}[-.\s]\d{4}\b/g;
+  
+  // Regex for address lines with street keywords and major cities
+  const addressRegex = /\b\d{1,5}\s+(?:[A-Za-z0-9#\-\.]+[\s,]+){1,5}(?:Street|St|Avenue|Ave|Road|Rd|Boulevard|Blvd|Lane|Ln|Drive|Dr|Court|Ct|Circle|Cir|Way|Terrace|Ter|Parkway|Pkwy|Plaza|Plz|Suite|Ste|Apartment|Apt|Mumbai|New York|Delhi|Bangalore|Pune)\b/gi;
+
+  return text
+    .replace(emailRegex, "[REDACTED_EMAIL]")
+    .replace(phoneRegex, "[REDACTED_PHONE]")
+    .replace(addressRegex, "[REDACTED_ADDRESS]");
+}
+
 async function callGroq(apiKey, systemPrompt, userContent, maxTokens = 2000) {
+  const sanitizedContent = redactPII(userContent);
   const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
     method: "POST",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
@@ -14,7 +33,7 @@ async function callGroq(apiKey, systemPrompt, userContent, maxTokens = 2000) {
       model: "llama-3.3-70b-versatile",
       messages: [
         { role: "system", content: systemPrompt },
-        { role: "user", content: userContent },
+        { role: "user", content: sanitizedContent },
       ],
       temperature: 0.3,
       max_tokens: maxTokens,
@@ -27,6 +46,7 @@ async function callGroq(apiKey, systemPrompt, userContent, maxTokens = 2000) {
 }
 
 async function callGroqText(apiKey, systemPrompt, userContent, maxTokens = 1500) {
+  const sanitizedContent = redactPII(userContent);
   const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
     method: "POST",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
@@ -34,7 +54,7 @@ async function callGroqText(apiKey, systemPrompt, userContent, maxTokens = 1500)
       model: "llama-3.3-70b-versatile",
       messages: [
         { role: "system", content: systemPrompt },
-        { role: "user", content: userContent },
+        { role: "user", content: sanitizedContent },
       ],
       temperature: 0.5,
       max_tokens: maxTokens,
