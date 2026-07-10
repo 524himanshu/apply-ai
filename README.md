@@ -1,5 +1,7 @@
 # OfferForge — AI Career Prep & Evaluation Suite
 
+### 🌐 Live Demo: [offerforge.vercel.app](https://offerforge.vercel.app/)
+
 OfferForge is a professional candidate preparation dashboard designed to audit resumes, practice for mock technical interviews, draft personalized outreach templates, and research target job positions.
 
 ---
@@ -33,7 +35,8 @@ OfferForge incorporates the client-side **DrishtiAI PII Redaction** shield:
 
 1. Clone and navigate to the directory:
    ```bash
-   cd career-ops-ui
+   git clone https://github.com/524himanshu/OfferForge.git
+   cd OfferForge
    ```
 2. Install npm packages:
    ```bash
